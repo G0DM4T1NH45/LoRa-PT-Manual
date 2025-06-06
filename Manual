@@ -1,3 +1,6 @@
+Para uma visualização mais didática do manual existe este link:
+https://www.notion.so/LoRa-comunica-es-20ad336f7e4580d1b2e9f80816aef5e4?source=copy_link
+
 #LoRa comunicações
 
 Equipamentos usados:
@@ -80,6 +83,7 @@ Usar o minicom ou o screen
 EX:
 sudo minicom -D /dev/ttyUSB0 -b 9600 (para abrir a sessão de visualização)
 Para enviar mensagens
+
 EX:
 sudo printf '\x22\x23\x02 texto a toa' > /dev/ttyUSB04
 Por alguma razão no terminal Linux não é obrigatório meter a mensagem em hexadecimal...(no modo 1)
