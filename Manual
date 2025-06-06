@@ -1,0 +1,85 @@
+#LoRa comunicações
+
+Equipamentos usados:
+
+Dois módulos LoRa E220 com “adaptador usb c” para ligar ao computador.
+Aplicações usadas:
+-Windows: 
+SSCOM
+-Linux:
+Screen e Minicom
+--------------------------------------
+3 MODOS DE OPERAÇÃO
+1- TRANSPARENT TRANSMISSION(DEFAULT)
+
+2- FIXED-POINT TRANSMISSION
+
+3- BROADCAST TRANSMISSION
+
+Modo OPTION
+Quem recebe mensagens?
+OPTION=0
+Todos os módulos no canal
+OPTION=1
+Apenas o que tiver o ADDR certo
+OPTION=1 + DST=FFFF
+Todos os módulos, tipo broadcast
+
+--------------------------------------
+Level 
+Basicamente é a maneira como os módulos vão funcionar, se é para estarem sempre on, se é para poupar energia etc…
+
+LEVEL
+Modo
+Descrição
+0
+Normal
+Modo padrão — transmissão e recepção contínua
+
+1
+Auto wake-up
+Entra em modo leve de espera, acorda periodicamente para comunicar
+
+2
+Trigger via UART
+Entra em modo de espera, só acorda quando recebe algo via UART
+
+3
+Deep Sleep
+Entra em modo de economia profunda, acorda apenas com sinais específicos
+--------------------------------------
+PARA ENTRAR EM MODO DE CONFIGURAÇÃO
+(em alguns comandos tem de se colocar um enter, para serem executados)
+1º-
++++ E UM ENTER
+1.1º-
+AT+HELP PARA VER CONFIGURAÇÕES DEFAULT
+1.2º-
+AT+LEVEL TO CONFIGURE TWO LR01 MODULES TO THE SAME RATE LEVEL ACCORDING TO DATA VOLUME REQUIREMENTS
+2º-
+AT+MODE1 (PARA ATIVAR O MODO DE ENDEREÇAMENTO, PARA NÃO FAZER BROADCAST NO CANAL)
+3º-
+AT+LEVEL1(NOS DOIS DISPOSITIVOS)
+4º-
+AT+MAC(PARA VER MAC DE CADA DISPOSITIVO)
+AT+MAC20,21(PARA MODIFICAR O MAC ADRRESS DE CADA DISPOSITIVO)
+5º-
+AT+CHANNEL(PARA VER O CANAL EM QUE CADA UM VAI OPERAR)
+AT+CHANNEL01(para mudar para canal 1)
+--------------------------------------
+
+FORMATO DE TRANSMISSÃO DE DATA
+
+RECEIVERS ADDRESS+RECEIVERS CHANNEL+DATA(DATA DEVE SER ENVIADA EM MODO hex)
+
+EX:
+202102 65 73 74 61 20 74 75 64 6F 20 62 65 6D 20 70 6F 72 20 61 69
+Caso estejas em Linux
+Usar o minicom ou o screen
+
+EX:
+sudo minicom -D /dev/ttyUSB0 -b 9600 (para abrir a sessão de visualização)
+Para enviar mensagens
+EX:
+sudo printf '\x22\x23\x02 texto a toa' > /dev/ttyUSB04
+Por alguma razão no terminal Linux não é obrigatório meter a mensagem em hexadecimal...(no modo 1)
